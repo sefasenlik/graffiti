@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborative Graffiti Wall</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+      <div class="welcome-content">
+        <h1>Graffiti Walls</h1>
+        <p>Create your own wall or join an existing one</p>
+        
+        <div class="welcome-actions">
+          <div class="input-group">
+            <label for="username-input">Your Tag Name</label>
+            <input type="text" id="username-input" placeholder="Enter your tag name" maxlength="15">
+          </div>
+          
+          <button id="create-wall-btn" class="primary-btn">Create New Wall</button>
+          
+          <div class="separator">
+            <span>OR</span>
+          </div>
+          
+          <div class="input-group">
+            <label for="wall-code-input">Join with Wall Code</label>
+            <input type="text" id="wall-code-input" placeholder="Enter wall code" maxlength="6">
+          </div>
+          
+          <button id="join-wall-btn" class="secondary-btn">Join Wall</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Canvas Screen -->
+    <div id="canvas-screen" class="screen">
+      <div class="header">
+        <div class="wall-info">
+          <h2>Wall: <span id="wall-code-display"></span></h2>
+          <button id="copy-link-btn" class="icon-btn" title="Copy link to clipboard">Share</button>
+        </div>
+        
+        <div class="users-info">
+          <span id="users-count">0</span> artists online
+        </div>
+        
+        <div class="header-actions">
+          <button id="save-wall-btn" class="primary-btn small">Save Wall</button>
+          <button id="view-gallery-btn" class="secondary-btn small">Gallery</button>
+          <button id="leave-wall-btn" class="text-btn">Leave</button>
+        </div>
+      </div>
+      
+      <canvas id="drawing-canvas"></canvas>
+      
+      <div class="toolbar">
+        <div class="color-picker">
+          <div class="color-option active" style="background-color: #000000;" data-color="#000000"></div>
+          <div class="color-option" style="background-color: #ff4444;" data-color="#ff4444"></div>
+          <div class="color-option" style="background-color: #44ff44;" data-color="#44ff44"></div>
+          <div class="color-option" style="background-color: #4444ff;" data-color="#4444ff"></div>
+          <div class="color-option" style="background-color: #ffff44;" data-color="#ffff44"></div>
+          <div class="color-option" style="background-color: #ff44ff;" data-color="#ff44ff"></div>
+          <div class="color-option" style="background-color: #44ffff;" data-color="#44ffff"></div>
+          <div class="color-option" style="background-color: #ffffff;" data-color="#ffffff"></div>
+        </div>
+        
+        <div class="brush-size">
+          <label for="brush-slider">Size:</label>
+          <input type="range" id="brush-slider" min="1" max="80" value="15">
+          <span id="brush-size">15px</span>
+        </div>
+        
+        <button id="clear-btn" class="danger-btn">Clear Canvas</button>
+      </div>
+    </div>
+    
+    <!-- Gallery Screen -->
+    <div id="gallery-screen" class="screen">
+      <div class="header">
+        <div class="wall-info">
+          <h2>Graffiti Gallery</h2>
+        </div>
+        
+        <button id="close-gallery-btn" class="text-btn">Back</button>
+      </div>
+      
+      <div class="gallery-container">
+        <div class="gallery-loading">Loading saved walls...</div>
+        <div class="gallery-empty hidden">No saved walls yet. Create your masterpiece and save it!</div>
+        <div class="gallery-grid"></div>
+      </div>
+    </div>
+    
+    <!-- Wall Viewer Screen -->
+    <div id="wall-viewer-screen" class="screen">
+      <div class="header">
+        <div class="wall-info">
+          <h2>Wall: <span id="viewer-wall-code"></span></h2>
+          <span class="wall-date" id="viewer-wall-date"></span>
+        </div>
+        
+        <button id="close-viewer-btn" class="text-btn">Back to Gallery</button>
+      </div>
+      
+      <div class="viewer-container">
+        <img id="wall-image" class="wall-image" alt="Saved wall" />
+      </div>
+    </div>
+    
+    <!-- Notifications -->
+    <div id="notification-container"></div>
+  </div>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/socket-client.js"></script>
+</body>
+</html>
